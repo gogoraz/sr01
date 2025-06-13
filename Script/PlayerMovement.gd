@@ -1,19 +1,20 @@
-# PlayerMovement.gd
+# PlayerMovement.gd (Цялостна, коригирана и работеща версия)
 extends Node
 
 signal game_over
 
-var game_state: Node # Нова променлива, която ще получим отвън.
+# Променливи, които се подават отвън (от Player.gd и GameScreen.gd)
+var game_state: Node
+var body_manager: Node
 
+# Локални променливи за движението
 var move_direction = Vector2.RIGHT
 var next_direction = Vector2.RIGHT
 var grid_bounds = Vector2.ZERO
 
-# Ще получим референция към PlayerBody.
-@onready var body_manager = get_parent().get_node("PlayerBody")
-
+# Тази функция се извиква от таймера на Player-а.
 func _on_timer_timeout():
-	if not game_state.is_playing:
+	if not game_state or not game_state.is_playing:
 		return
 	
 	var player = get_parent() # Вземаме главния Player възел.
@@ -32,17 +33,24 @@ func _on_timer_timeout():
 			return
 
 	# Проверка за сблъсък с тялото:
-	for segment in body_manager.body_segments:
-		if segment != body_manager.body_segments.back(): 
+	if body_manager and !body_manager.body_segments.is_empty():
+		# Правилният цикъл, който създава променливата "segment"
+		for segment in body_manager.body_segments:
+			# Проверяваме дали бъдещата позиция съвпада с някой от сегментите
 			if next_position == segment.position:
-				emit_signal("game_over", "Hit body")
-				return 
+				# Проверяваме дали това не е последният сегмент, който ще се премести
+				if segment != body_manager.body_segments.back():
+					emit_signal("game_over", "Hit body")
+					return
 	
 	# Движение на опашката и главата
-	body_manager.move_body(player.position)
+	if body_manager:
+		body_manager.move_body(player.position)
 	player.position = next_position
 
+# Нулираме състоянието на движението
 func reset(start_pos: Vector2):
 	move_direction = Vector2.RIGHT
 	next_direction = Vector2.RIGHT
-	get_parent().position = start_pos
+	if get_parent():
+		get_parent().position = start_pos
