@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://beorwnqrslx7y"]
+
+[ext_resource type="Texture2D" uid="uid://bqflskd5ik1xd" path="res://Assets/32x32/body-32.png" id="1_kw2ia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chns8"]
+size = Vector2(120, 120)
+
+[node name="BodySegment" type="Area2D"]
+modulate = Color(0.215799, 0.37185, 0.773831, 1)
+scale = Vector2(0.25, 0.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.310644, 0.43638, 0.937541, 1)
+scale = Vector2(4, 4)
+texture = ExtResource("1_kw2ia")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_chns8")
