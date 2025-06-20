@@ -7,8 +7,8 @@ extends MarginContainer
 @onready var game_state = $GameState
 @onready var food_manager = $FoodManager
 
-var grid_width = 40
-var grid_height = 25
+var grid_width = 20
+var grid_height = 15
 var grid_offset = Vector2(0, 0)
 
 func _ready():
@@ -21,10 +21,18 @@ func _ready():
 	food_manager.player = player
 	food_manager.grid_width = grid_width
 	food_manager.grid_height = grid_height
+	food_manager.grid_offset = grid_offset
 
 	# 2. КОНФИГУРИРАМЕ PLAYER
 	# Изчисляваме offset-а на решетката (GridBackground)
 	grid_offset = player.get_parent().get_node("GridBackground").position
+
+	food_manager.grid_offset = grid_offset
+
+	# Оразмери SubViewport-а според grid_width и grid_height
+	$VerticalSplit/MainContent/GameViewportContainer/SubViewport.size = Vector2(grid_width * Global.TILE_SIZE, grid_height * Global.TILE_SIZE)
+	# Оразмери TileMap-а (GridBackground), ако е нужно
+	$VerticalSplit/MainContent/GameViewportContainer/SubViewport/Main/GridBackground.set("cell/size", Vector2(Global.TILE_SIZE, Global.TILE_SIZE))
 
 	player.grid_bounds = Vector2(grid_width, grid_height)
 	# Центрираме змията в игралното поле
@@ -41,8 +49,10 @@ func _ready():
 
 	# 4. СТАРТИРАМЕ ИГРАТА
 	game_state.start_new_round()
+	player.start_game_loop()
 
 func _on_round_ended():
 	print("ROUND OVER! TIME FOR UPGRADES!")
 	await get_tree().create_timer(2.0).timeout
 	game_state.start_new_round()
+	player.start_game_loop()

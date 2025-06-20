@@ -4,6 +4,9 @@ extends Node
 # Сигнал, който ще излъчваме, когато играчът избере нова посока.
 signal direction_changed(new_direction: Vector2)
 
+func _ready():
+	set_process(true)
+
 func _process(_delta):
 	# Използваме if/elif, за да сме сигурни, че се обработва само едно натискане на кадър.
 	if Input.is_action_just_pressed("ui_right"):

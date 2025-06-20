@@ -41,6 +41,9 @@ func _ready():
 	if movement_manager:
 		movement_manager.grid_bounds = grid_bounds
 
+	set_process_input(true)
+	# grab_focus()
+
 func create_initial_body(length: int):
 	body_manager.create_initial_body(length, position, movement_manager.move_direction)
 

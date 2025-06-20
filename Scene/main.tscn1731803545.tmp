@@ -7,6 +7,7 @@
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(160, 160)
+move_speed = null
 
 [node name="GridBackground" type="TileMap" parent="."]
 tile_set = ExtResource("2_1bvp3")
