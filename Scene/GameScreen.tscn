@@ -1,67 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq000rj66eihu"]
+[gd_scene load_steps=3 format=3 uid="uid://dq000rj66eihu"]
 
-[ext_resource type="Script" uid="uid://dgfgnlrl2iuk4" path="res://Script/GameScreen.gd" id="1_hdfm1"]
+[ext_resource type="PackedScene" uid="uid://dcbtxbx1nyxwp" path="res://Scene/GameUI.tscn" id="1_h2c75"]
 [ext_resource type="PackedScene" uid="uid://b7v1g72dkfo8i" path="res://Scene/main.tscn" id="2_vhnru"]
-[ext_resource type="Script" uid="uid://cp2allxiyb4cw" path="res://Script/GameState.gd" id="3_amvav"]
-[ext_resource type="Script" uid="uid://bvjh2n8fw2jbg" path="res://Script/FoodManager.gd" id="3_hdfm1"]
 
-[node name="GameScreen" type="MarginContainer"]
+[node name="GameScreen" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-script = ExtResource("1_hdfm1")
 
-[node name="VerticalSplit" type="VBoxContainer" parent="."]
-layout_mode = 2
+[node name="GameUi" parent="." instance=ExtResource("1_h2c75")]
 
-[node name="TopBar" type="PanelContainer" parent="VerticalSplit"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VerticalSplit/TopBar"]
-layout_mode = 2
-
-[node name="ScoreLabel" type="Label" parent="VerticalSplit/TopBar/HBoxContainer"]
-layout_mode = 2
-text = "Score: 0"
-
-[node name="TimeLabel" type="Label" parent="VerticalSplit/TopBar/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Time: 40"
-
-[node name="MainContent" type="HBoxContainer" parent="VerticalSplit"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LeftSidebar" type="PanelContainer" parent="VerticalSplit/MainContent"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="GameViewportContainer" type="SubViewportContainer" parent="VerticalSplit/MainContent"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="SubViewport" type="SubViewport" parent="VerticalSplit/MainContent/GameViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(448, 320)
-size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="Main" parent="VerticalSplit/MainContent/GameViewportContainer/SubViewport" instance=ExtResource("2_vhnru")]
-
-[node name="RightSidebar" type="PanelContainer" parent="VerticalSplit/MainContent"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="GameState" type="Node" parent="."]
-script = ExtResource("3_amvav")
-
-[node name="FoodManager" type="Node" parent="."]
-script = ExtResource("3_hdfm1")
+[node name="Main" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_vhnru")]
