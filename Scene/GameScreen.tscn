@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dq000rj66eihu"]
 
-[ext_resource type="PackedScene" uid="uid://d00dea4s1r3j5" path="res://Scene/Player.tscn" id="2_qye0c"]
+[ext_resource type="Script" uid="uid://dgfgnlrl2iuk4" path="res://Script/GameScreen.gd" id="1_hdfm1"]
 [ext_resource type="PackedScene" uid="uid://b7v1g72dkfo8i" path="res://Scene/main.tscn" id="2_vhnru"]
 [ext_resource type="Script" uid="uid://cp2allxiyb4cw" path="res://Script/GameState.gd" id="3_amvav"]
 [ext_resource type="Script" uid="uid://bvjh2n8fw2jbg" path="res://Script/FoodManager.gd" id="3_hdfm1"]
@@ -15,6 +15,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_hdfm1")
 
 [node name="VerticalSplit" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -45,14 +46,15 @@ layout_mode = 2
 [node name="GameViewportContainer" type="SubViewportContainer" parent="VerticalSplit/MainContent"]
 layout_mode = 2
 size_flags_horizontal = 3
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VerticalSplit/MainContent/GameViewportContainer"]
 handle_input_locally = false
+size = Vector2i(281, 369)
+size_2d_override_stretch = true
 render_target_update_mode = 4
 
 [node name="Main" parent="VerticalSplit/MainContent/GameViewportContainer/SubViewport" instance=ExtResource("2_vhnru")]
-
-[node name="Plear" parent="VerticalSplit/MainContent/GameViewportContainer/SubViewport/Main" instance=ExtResource("2_qye0c")]
 
 [node name="RightSidebar" type="PanelContainer" parent="VerticalSplit/MainContent"]
 custom_minimum_size = Vector2(50, 0)

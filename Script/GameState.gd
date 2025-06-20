@@ -37,12 +37,14 @@ func _process(delta: float):
 func start_new_round():
 	score = 0
 	is_playing = true
+	print("GameState: Starting new round, is_playing is now ", is_playing)
 	round_time_left = START_TIME
 	
 	update_score_ui() # Използваме новата функция
 	update_time_ui()  # Използваме новата функция
 
 	player.reset_snake()
+	print("GameState: Telling player to start loop")
 	player.create_initial_body(2)
 	
 	food_manager.clear_food()

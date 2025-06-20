@@ -41,7 +41,10 @@ func get_occupied_cells():
 	return cells
 
 func start_game_loop():
+	print("Player: Starting move timer")
 	move_timer.start()
+	
+	
 
 func _on_direction_changed(new_direction: Vector2):
 	if movement_manager.move_direction.abs() != new_direction.abs():

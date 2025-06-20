@@ -11,7 +11,13 @@ var next_direction = Vector2.RIGHT
 var grid_bounds = Vector2.ZERO
 
 func _on_timer_timeout():
-	if not game_state or not game_state.is_playing:
+	#if not game_state or not game_state.is_playing:
+		#return
+	if not game_state:
+		print("PlayerMovement: game_state is NULL!")
+		return
+	print("PlayerMovement: Timer timeout! is_playing is: ", game_state.is_playing)
+	if not game_state.is_playing:
 		return
 
 	var player = get_parent()
