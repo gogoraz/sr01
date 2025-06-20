@@ -11,8 +11,17 @@ var move_timer: Timer
 
 @export_range(0.05, 0.4) var move_speed = 0.15
 
-var grid_bounds = Vector2.ZERO
+var _grid_bounds = Vector2.ZERO
 var start_position = Vector2.ZERO
+
+var grid_bounds:
+	set(value):
+		_grid_bounds = value
+		# Update movement_manager if it exists
+		if has_node("PlayerMovement"):
+			$PlayerMovement.grid_bounds = value
+	get:
+		return _grid_bounds
 
 func _ready():
 	# Намираме компонентите чрез get_node, защото сме сигурни, че са деца на този възел.
@@ -27,6 +36,10 @@ func _ready():
 	input_manager.direction_changed.connect(_on_direction_changed)
 	movement_manager.game_over.connect(_on_game_over)
 	move_timer.timeout.connect(movement_manager._on_timer_timeout)
+	
+	# Предаваме grid_bounds на movement_manager
+	if movement_manager:
+		movement_manager.grid_bounds = grid_bounds
 
 func create_initial_body(length: int):
 	body_manager.create_initial_body(length, position, movement_manager.move_direction)

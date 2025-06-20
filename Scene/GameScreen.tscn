@@ -46,11 +46,10 @@ layout_mode = 2
 [node name="GameViewportContainer" type="SubViewportContainer" parent="VerticalSplit/MainContent"]
 layout_mode = 2
 size_flags_horizontal = 3
-stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="VerticalSplit/MainContent/GameViewportContainer"]
 handle_input_locally = false
-size = Vector2i(281, 369)
+size = Vector2i(448, 320)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 

@@ -11,26 +11,36 @@ var next_direction = Vector2.RIGHT
 var grid_bounds = Vector2.ZERO
 
 func _on_timer_timeout():
-	#if not game_state or not game_state.is_playing:
-		#return
 	if not game_state:
 		print("PlayerMovement: game_state is NULL!")
 		return
-	print("PlayerMovement: Timer timeout! is_playing is: ", game_state.is_playing)
+			
 	if not game_state.is_playing:
 		return
 
 	var player = get_parent()
 	move_direction = next_direction
 	var next_position = player.position + move_direction * Global.TILE_SIZE
+	
+	# Debug information
+	print("Current position: ", player.position)
+	print("Next position: ", next_position)
+	print("Grid bounds: ", grid_bounds, " (in tiles)")
+	if grid_bounds != Vector2.ZERO:
+		print("Grid size in pixels: ", grid_bounds * Global.TILE_SIZE)
+	else:
+		print("Grid size: Not set")
 
 	# Проверка за сблъсък със стена
 	if grid_bounds != Vector2.ZERO:
-		if (next_position.x < 0 or
-			next_position.x >= grid_bounds.x * Global.TILE_SIZE or
+		var grid_pixel_size = grid_bounds * Global.TILE_SIZE
+		
+		# Check for wall collision
+		if (next_position.x < 0 or 
+			next_position.x >= grid_pixel_size.x or
 			next_position.y < 0 or
-			next_position.y >= grid_bounds.y * Global.TILE_SIZE):
-			emit_signal("game_over", "Hit a wall")
+			next_position.y >= grid_pixel_size.y):
+			emit_signal("game_over", "Hit wall")
 			return
 
 	# Проверка за сблъсък с тялото
