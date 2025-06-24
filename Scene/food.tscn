@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxs30vakxhpij"]
+[gd_scene load_steps=4 format=3 uid="uid://dxs30vakxhpij"]
 
 [ext_resource type="Texture2D" uid="uid://5oklrxgw758e" path="res://Assets/32x32/food-32.png" id="1_o21ps"]
+[ext_resource type="Script" uid="uid://dq7kix7wedddh" path="res://Script/Food.gd" id="2_f3k9p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8txok"]
 size = Vector2(120, 120)
 
 [node name="Food" type="Area2D" groups=["food"]]
 scale = Vector2(0.25, 0.25)
+script = ExtResource("2_f3k9p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)
